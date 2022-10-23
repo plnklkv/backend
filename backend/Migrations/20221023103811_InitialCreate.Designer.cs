@@ -11,8 +11,8 @@ using backend;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221021073837_AddTable")]
-    partial class AddTable
+    [Migration("20221023103811_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,20 +31,17 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("FKProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FKUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FKProductId");
+                    b.HasIndex("ProductId");
 
-                    b.HasIndex("FKUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Carts");
                 });
@@ -57,20 +54,20 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("FKProductId")
+                    b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("FKUserId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FKProductId");
+                    b.HasIndex("ProductId");
 
-                    b.HasIndex("FKUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -134,44 +131,66 @@ namespace backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "user@shop.ru",
+                            FirstName = "FirstName",
+                            MiddleName = "MiddleName",
+                            Password = "password",
+                            Role = "user",
+                            SurnName = "SurnName"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "admin@shop.ru",
+                            FirstName = "FirstName",
+                            MiddleName = "MiddleName",
+                            Password = "QWEasd123",
+                            Role = "admin",
+                            SurnName = "SurnName"
+                        });
                 });
 
             modelBuilder.Entity("backend.Models.Cart", b =>
                 {
-                    b.HasOne("backend.Models.Product", "FKProduct")
+                    b.HasOne("backend.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("FKProductId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Models.User", "FKUser")
+                    b.HasOne("backend.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("FKUserId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FKProduct");
+                    b.Navigation("Product");
 
-                    b.Navigation("FKUser");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("backend.Models.Order", b =>
                 {
-                    b.HasOne("backend.Models.Product", "FKProduct")
+                    b.HasOne("backend.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("FKProductId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Models.User", "FKUser")
+                    b.HasOne("backend.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("FKUserId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FKProduct");
+                    b.Navigation("Product");
 
-                    b.Navigation("FKUser");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

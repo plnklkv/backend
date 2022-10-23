@@ -4,7 +4,7 @@
 
 namespace backend.Migrations
 {
-    public partial class AddTable : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,27 +24,44 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SurnName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Carts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FKUserId = table.Column<int>(type: "int", nullable: false),
-                    FKProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Carts_Products_FKProductId",
-                        column: x => x.FKProductId,
+                        name: "FK_Carts_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Carts_Users_FKUserId",
-                        column: x => x.FKUserId,
+                        name: "FK_Carts_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -56,46 +73,56 @@ namespace backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FKUserId = table.Column<int>(type: "int", nullable: false),
-                    FKProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Products_FKProductId",
-                        column: x => x.FKProductId,
+                        name: "FK_Orders_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_Users_FKUserId",
-                        column: x => x.FKUserId,
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FirstName", "MiddleName", "Password", "Role", "SurnName" },
+                values: new object[] { 1, "user@shop.ru", "FirstName", "MiddleName", "password", "user", "SurnName" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FirstName", "MiddleName", "Password", "Role", "SurnName" },
+                values: new object[] { 2, "admin@shop.ru", "FirstName", "MiddleName", "QWEasd123", "admin", "SurnName" });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_FKProductId",
+                name: "IX_Carts_ProductId",
                 table: "Carts",
-                column: "FKProductId");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_FKUserId",
+                name: "IX_Carts_UserId",
                 table: "Carts",
-                column: "FKUserId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_FKProductId",
+                name: "IX_Orders_ProductId",
                 table: "Orders",
-                column: "FKProductId");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_FKUserId",
+                name: "IX_Orders_UserId",
                 table: "Orders",
-                column: "FKUserId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -108,6 +135,9 @@ namespace backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
