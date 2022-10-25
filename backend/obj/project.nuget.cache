@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "z9bfLa479gPdhO+boP4p+LGM3pj/MbrMlIinc5uzV9eiZ7uDozcdH1aysgaxEp+S/NfPZOs0Fls4tORYfQ+paQ==",
+  "dgSpecHash": "nfYn6ZvenwHtnmrnvug98/fLIuTPifz47Afiz60aR6t0DImzCwKMyqBHSZ9b8g5I8BgKGD9NYL1gL26ztsh/AQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\polin\\Desktop\\backend\\backend\\backend.csproj",
   "expectedPackageFiles": [
@@ -18,6 +18,7 @@
     "C:\\Users\\polin\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\6.0.10\\microsoft.entityframeworkcore.sqlite.6.0.10.nupkg.sha512",
     "C:\\Users\\polin\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\6.0.10\\microsoft.entityframeworkcore.sqlite.core.6.0.10.nupkg.sha512",
     "C:\\Users\\polin\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.10\\microsoft.entityframeworkcore.sqlserver.6.0.10.nupkg.sha512",
+    "C:\\Users\\polin\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\6.0.10\\microsoft.entityframeworkcore.tools.6.0.10.nupkg.sha512",
     "C:\\Users\\polin\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\polin\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\polin\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.1\\microsoft.extensions.caching.memory.6.0.1.nupkg.sha512",
